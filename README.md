@@ -46,17 +46,26 @@ Companies like Google, Microsoft, and IBM Security use similar AI-based systems.
 
 ## 🧠 System Architecture
 User Input (Dashboard)
-↓
+        │
+        ▼
 Flask Backend (API)
-↓
+        │
+        ▼
 Preprocessing & Scaling
-↓
-| Random Forest (Attack) |
-| Isolation Forest (Anomaly) |
-    ↓
-
+        │
+        ▼
++---------------------------+
+|   Machine Learning Layer  |
+|---------------------------|
+|  • Random Forest (Attack) |
+|  • Isolation Forest       |
+|    (Anomaly Detection)    |
++---------------------------+
+        │
+        ▼
 Prediction Output
-↓
+        │
+        ▼
 Dashboard Display
 
 
@@ -79,20 +88,21 @@ Dashboard Display
 
 AI-Cybersecurity-Threat-Detection/
 │
-├── data/
-├── src/
-│ ├── preprocessing.py
-│ ├── train_model.py
-│ ├── predict.py
-│ ├── visualize.py
+├── data/                     # Dataset files
+├── models/                   # Trained ML models (.pkl)
+├── outputs/                  # Confusion matrix & results
+├── images/                   # Screenshots for README
 │
-├── models/
-├── outputs/
-├── images/
-├── app.py
-├── main.py
-├── requirements.txt
-└── README.md
+├── src/
+│   ├── preprocessing.py      # Data preprocessing
+│   ├── train_model.py        # Model training
+│   ├── predict.py            # Prediction logic
+│   └── visualize.py          # Visualization
+│
+├── app.py                    # Flask web app
+├── main.py                   # Training pipeline runner
+├── requirements.txt          # Dependencies
+└── README.md                 # Documentation
 
 
 ## ⚙️ Installation & Setup
