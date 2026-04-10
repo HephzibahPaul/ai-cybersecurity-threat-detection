@@ -3,25 +3,36 @@ from src.predict import detect_threat
 
 app = Flask(__name__)
 
-# 🔥 DASHBOARD UI
 @app.route('/', methods=['GET', 'POST'])
 def home():
     result = ""
 
+    # ⭐ Store values
+    packet_size = ""
+    failed_logins = ""
+    request_frequency = ""
+
     if request.method == 'POST':
-        packet_size = float(request.form['packet_size'])
-        failed_logins = float(request.form['failed_logins'])
-        request_frequency = float(request.form['request_frequency'])
+        packet_size = request.form.get('packet_size', '')
+        failed_logins = request.form.get('failed_logins', '')
+        request_frequency = request.form.get('request_frequency', '')
 
-        result = detect_threat([packet_size, failed_logins, request_frequency])
+        if packet_size and failed_logins and request_frequency:
+            features = [
+                float(packet_size),
+                float(failed_logins),
+                float(request_frequency)
+            ]
 
-    # Color logic
+            result = detect_threat(features)
+
+    # 🎨 Color logic
     if "Attack" in result:
-        color = "#ef4444"   # red
+        color = "#ef4444"
     elif "Anomaly" in result:
-        color = "#facc15"   # yellow
+        color = "#facc15"
     else:
-        color = "#22c55e"   # green
+        color = "#22c55e"
 
     return f"""
     <html>
@@ -48,45 +59,46 @@ def home():
                 background: #1e293b;
                 padding: 30px;
                 border-radius: 15px;
-                width: 350px;
+                width: 280px;
                 text-align: center;
                 box-shadow: 0 0 30px rgba(0,0,0,0.6);
             }}
 
             h1 {{
-                margin-bottom: 20px;
+                margin-bottom: 18px;
+                font-size: 20px;
             }}
 
             input {{
-                margin: 10px 0;
-                padding: 10px;
-                width: 100%;
-                border-radius: 8px;
+                margin: 8px 0;
+                padding: 8px;
+                width: 90%;
+                border-radius: 6px;
                 border: none;
             }}
 
             button {{
                 margin-top: 10px;
-                padding: 10px;
-                width: 100%;
+                padding: 8px;
+                width: 90%;
                 background: #22c55e;
                 border: none;
-                border-radius: 8px;
+                border-radius: 6px;
                 color: white;
                 font-weight: bold;
                 cursor: pointer;
             }}
 
             .result {{
-                margin-top: 20px;
-                font-size: 18px;
+                margin-top: 14px;
+                font-size: 16px;
                 font-weight: bold;
                 color: {color};
             }}
 
             a {{
                 display: block;
-                margin-top: 15px;
+                margin-top: 12px;
                 color: #38bdf8;
                 text-decoration: none;
             }}
@@ -98,9 +110,9 @@ def home():
             <h1>🔐 Cyber Threat Detection</h1>
 
             <form method="POST">
-                <input type="number" name="packet_size" placeholder="Packet Size" required>
-                <input type="number" name="failed_logins" placeholder="Failed Logins" required>
-                <input type="number" name="request_frequency" placeholder="Request Frequency" required>
+                <input type="number" name="packet_size" placeholder="Packet Size" value="{packet_size}" required>
+                <input type="number" name="failed_logins" placeholder="Failed Logins" value="{failed_logins}" required>
+                <input type="number" name="request_frequency" placeholder="Request Frequency" value="{request_frequency}" required>
 
                 <button type="submit">Analyze</button>
             </form>
@@ -113,12 +125,10 @@ def home():
     </html>
     """
 
-# 🔥 CONFUSION MATRIX ROUTE
 @app.route('/confusion')
 def show_confusion():
     return send_file('outputs/confusion_matrix.png', mimetype='image/png')
 
-# 🔥 API ENDPOINT (POSTMAN / CURL)
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.get_json()
@@ -133,6 +143,6 @@ def predict():
 
     return jsonify({"result": result})
 
-# 🔥 RUN SERVER
+
 if __name__ == "__main__":
     app.run(debug=True)
