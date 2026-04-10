@@ -88,11 +88,11 @@ AI-Cybersecurity-Threat-Detection/
 │
 ├── models/
 ├── outputs/
+├── images/
 ├── app.py
 ├── main.py
 ├── requirements.txt
 └── README.md
-
 
 ---
 
