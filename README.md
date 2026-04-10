@@ -130,6 +130,21 @@ High accuracy on simulated data
 Clear classification of traffic types
 Confusion matrix visualization available
 
+## 📸 Output Screenshots
+
+### 🖥️ Dashboard
+![Dashboard](images/dashboard.png)
+
+### ✅ Normal Traffic
+![Normal](images/normal_traffic.png)
+
+### 🚨 Known Attack
+![Attack](images/known_attack.png)
+
+### ⚠️ Anomaly Detected
+![Anomaly](images/anomaly_detected.png)
+
+
 🖥️ Features
 Real-time threat detection
 Interactive dashboard UI
