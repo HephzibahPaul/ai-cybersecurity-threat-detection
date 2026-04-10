@@ -166,11 +166,13 @@ Add real-time streaming data
 Enhance UI with React or Streamlit
 Integrate with SIEM tools
 
-👨‍💻 Author
-
-M S Hephzibah Paul
 
 ⭐ Conclusion
 
 This project demonstrates how AI can be used to build intelligent cybersecurity systems capable of detecting threats dynamically, 
 making it highly relevant for real-world applications and industry use cases.
+
+
+👨‍💻 Author
+
+M S Hephzibah Paul
